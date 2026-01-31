@@ -93,6 +93,10 @@ export type SendFeishuMessageParams = {
   replyToMessageId?: string;
 };
 
+function trimLeadingNewlines(text: string): string {
+  return text.replace(/^(\r?\n)+/, "");
+}
+
 export async function sendMessageFeishu(params: SendFeishuMessageParams): Promise<FeishuSendResult> {
   const { cfg, to, text, replyToMessageId } = params;
   const feishuCfg = cfg.channels?.["openclaw-feishu"] as FeishuConfig | undefined;
@@ -111,7 +115,10 @@ export async function sendMessageFeishu(params: SendFeishuMessageParams): Promis
     cfg,
     channel: "feishu",
   });
-  const messageText = getFeishuRuntime().channel.text.convertMarkdownTables(text ?? "", tableMode);
+  const messageText = getFeishuRuntime().channel.text.convertMarkdownTables(
+    trimLeadingNewlines(text ?? ""),
+    tableMode
+  );
 
   const content = JSON.stringify({ text: messageText });
 
@@ -267,7 +274,7 @@ export async function sendMarkdownCardFeishu(params: {
   replyToMessageId?: string;
 }): Promise<FeishuSendResult> {
   const { cfg, to, text, replyToMessageId } = params;
-  const card = buildMarkdownCard(text);
+  const card = buildMarkdownCard(trimLeadingNewlines(text));
   return sendCardFeishu({ cfg, to, card, replyToMessageId });
 }
 
