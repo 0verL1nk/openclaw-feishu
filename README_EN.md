@@ -35,7 +35,7 @@
 - 📤 **File Upload** - Send images and files
 - 🎨 **Smart Rendering** - Auto-switch between plain text and Markdown cards
 - 🔐 **Access Control** - Flexible DM/group allowlist policies
-- ⚡ **Instant Delivery** - v0.1.4 fix: messages sent immediately during generation
+- ⚡ **Instant Delivery** - v0.1.5 fix: messages sent immediately during generation
 
 ---
 
@@ -57,10 +57,10 @@ npm install @overlink/openclaw-feishu
 
 ```bash
 # 1. Download the package
-curl -O https://registry.npmjs.org/@overlink/openclaw-feishu/-/openclaw-feishu-0.1.4.tgz
+curl -O https://registry.npmjs.org/@overlink/openclaw-feishu/-/openclaw-feishu-0.1.5.tgz
 
 # 2. Install from local file
-openclaw plugins install ./openclaw-feishu-0.1.4.tgz
+openclaw plugins install ./openclaw-feishu-0.1.5.tgz
 ```
 
 ---
@@ -247,7 +247,7 @@ Send `/new` command in the chat.
 
 ### ❓ Why Not Streaming Output?
 
-Feishu API has strict rate limits. Frequent message updates easily trigger throttling. v0.1.4 optimizes this: **messages sent immediately during generation** (not after completion), balancing stability and real-time delivery.
+Feishu API has strict rate limits. Frequent message updates easily trigger throttling. v0.1.5 optimizes this: **messages sent immediately during generation** (not after completion), balancing stability and real-time delivery.
 
 ### ❌ Windows Install Error (`spawn npm ENOENT`)
 

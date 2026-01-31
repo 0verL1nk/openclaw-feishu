@@ -35,7 +35,7 @@
 - 📤 **文件上传** - 支持图片和文件的上传发送
 - 🎨 **智能渲染** - 自动选择纯文本或 Markdown 卡片渲染
 - 🔐 **权限控制** - 灵活的私聊/群聊白名单策略
-- ⚡ **即时响应** - v0.1.4 修复：消息在生成时立即发送，无需等待全部完成
+- ⚡ **即时响应** - v0.1.5 修复：消息在生成时立即发送，无需等待全部完成
 
 ---
 
@@ -57,10 +57,10 @@ npm install @overlink/openclaw-feishu
 
 ```bash
 # 1. 下载插件包
-curl -O https://registry.npmjs.org/@overlink/openclaw-feishu/-/openclaw-feishu-0.1.4.tgz
+curl -O https://registry.npmjs.org/@overlink/openclaw-feishu/-/openclaw-feishu-0.1.5.tgz
 
 # 2. 安装本地包
-openclaw plugins install ./openclaw-feishu-0.1.4.tgz
+openclaw plugins install ./openclaw-feishu-0.1.5.tgz
 ```
 
 ---
@@ -247,7 +247,7 @@ channels:
 
 ### ❓ 为什么消息不是流式输出？
 
-飞书 API 有严格的频率限制，频繁更新消息容易触发限流。v0.1.4 已优化为：**消息在生成时立即发送**（而非等待全部完成），在稳定性和实时性之间取得平衡。
+飞书 API 有严格的频率限制，频繁更新消息容易触发限流。v0.1.5 已优化为：**消息在生成时立即发送**（而非等待全部完成），在稳定性和实时性之间取得平衡。
 
 ### ❌ Windows 安装失败（`spawn npm ENOENT`）
 
