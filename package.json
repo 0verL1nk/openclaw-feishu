@@ -1,8 +1,8 @@
 {
-  "name": "@m1heng-clawd/feishu",
-  "version": "0.1.3",
+  "name": "@overlink/openclaw-feishu",
+  "version": "0.1.4",
   "type": "module",
-  "description": "OpenClaw Feishu/Lark channel plugin",
+  "description": "OpenClaw Feishu/Lark channel plugin (fixed immediate message delivery)",
   "license": "MIT",
   "files": [
     "index.ts",
@@ -11,7 +11,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/m1heng/clawdbot-feishu.git"
+    "url": "git+https://github.com/overlink/openclaw-feishu.git"
   },
   "keywords": [
     "openclaw",
@@ -39,7 +39,7 @@
       "order": 70
     },
     "install": {
-      "npmSpec": "@m1heng-clawd/feishu",
+      "npmSpec": "@overlink/openclaw-feishu",
       "localPath": ".",
       "defaultChoice": "npm"
     }

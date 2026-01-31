@@ -103,39 +103,41 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
           return;
         }
 
-        // Check render mode: auto (default), raw, or card
         const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
         const renderMode = feishuCfg?.renderMode ?? "auto";
 
-        // Determine if we should use card for this message
         const useCard =
           renderMode === "card" || (renderMode === "auto" && shouldUseCard(text));
 
         if (useCard) {
-          // Card mode: send as interactive card with markdown rendering
           const chunks = core.channel.text.chunkTextWithMode(text, textChunkLimit, chunkMode);
           params.runtime.log?.(`feishu deliver: sending ${chunks.length} card chunks to ${chatId}`);
-          for (const chunk of chunks) {
-            await sendMarkdownCardFeishu({
-              cfg,
-              to: chatId,
-              text: chunk,
-              replyToMessageId,
-            });
-          }
+          
+          await Promise.all(
+            chunks.map(chunk =>
+              sendMarkdownCardFeishu({
+                cfg,
+                to: chatId,
+                text: chunk,
+                replyToMessageId,
+              })
+            )
+          );
         } else {
-          // Raw mode: send as plain text with table conversion
           const converted = core.channel.text.convertMarkdownTables(text, tableMode);
           const chunks = core.channel.text.chunkTextWithMode(converted, textChunkLimit, chunkMode);
           params.runtime.log?.(`feishu deliver: sending ${chunks.length} text chunks to ${chatId}`);
-          for (const chunk of chunks) {
-            await sendMessageFeishu({
-              cfg,
-              to: chatId,
-              text: chunk,
-              replyToMessageId,
-            });
-          }
+          
+          await Promise.all(
+            chunks.map(chunk =>
+              sendMessageFeishu({
+                cfg,
+                to: chatId,
+                text: chunk,
+                replyToMessageId,
+              })
+            )
+          );
         }
       },
       onError: (err, info) => {
