@@ -510,7 +510,7 @@ export async function handleFeishuMessage(params: {
 
     const route = core.channel.routing.resolveAgentRoute({
       cfg,
-      channel: "feishu",
+      channel: "openclaw-feishu",
       peer: {
         kind: isGroup ? "group" : "dm",
         id: isGroup ? ctx.chatId : ctx.senderOpenId,
@@ -609,13 +609,13 @@ export async function handleFeishuMessage(params: {
       GroupSubject: isGroup ? ctx.chatId : undefined,
       SenderName: ctx.senderName ?? ctx.senderOpenId,
       SenderId: ctx.senderOpenId,
-      Provider: "feishu" as const,
-      Surface: "feishu" as const,
+      Provider: "openclaw-feishu" as const,
+      Surface: "openclaw-feishu" as const,
       MessageSid: ctx.messageId,
       Timestamp: Date.now(),
       WasMentioned: ctx.mentionedBot,
       CommandAuthorized: true,
-      OriginatingChannel: "feishu" as const,
+      OriginatingChannel: "openclaw-feishu" as const,
       OriginatingTo: feishuTo,
       ...mediaPayload,
     });

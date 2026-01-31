@@ -16,18 +16,18 @@ import {
 import { openclawFeishuOnboardingAdapter } from "./onboarding.js";
 
 const meta = {
-  id: "feishu",
+  id: "openclaw-feishu",
   label: "Feishu",
   selectionLabel: "Feishu/Lark (飞书)",
-  docsPath: "/channels/feishu",
-  docsLabel: "feishu",
+  docsPath: "/channels/openclaw-feishu",
+  docsLabel: "openclaw-feishu",
   blurb: "飞书/Lark enterprise messaging.",
   aliases: ["lark"],
   order: 70,
 } as const;
 
 export const feishuPlugin: ChannelPlugin<ResolvedFeishuAccount> = {
-  id: "feishu",
+  id: "openclaw-feishu",
   meta: {
     ...meta,
   },
