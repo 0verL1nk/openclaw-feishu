@@ -113,31 +113,27 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
           const chunks = core.channel.text.chunkTextWithMode(text, textChunkLimit, chunkMode);
           params.runtime.log?.(`feishu deliver: sending ${chunks.length} card chunks to ${chatId}`);
           
-          await Promise.all(
-            chunks.map(chunk =>
-              sendMarkdownCardFeishu({
-                cfg,
-                to: chatId,
-                text: chunk,
-                replyToMessageId,
-              })
-            )
-          );
+          for (const chunk of chunks) {
+            await sendMarkdownCardFeishu({
+              cfg,
+              to: chatId,
+              text: chunk,
+              replyToMessageId,
+            });
+          }
         } else {
           const converted = core.channel.text.convertMarkdownTables(text, tableMode);
           const chunks = core.channel.text.chunkTextWithMode(converted, textChunkLimit, chunkMode);
           params.runtime.log?.(`feishu deliver: sending ${chunks.length} text chunks to ${chatId}`);
           
-          await Promise.all(
-            chunks.map(chunk =>
-              sendMessageFeishu({
-                cfg,
-                to: chatId,
-                text: chunk,
-                replyToMessageId,
-              })
-            )
-          );
+          for (const chunk of chunks) {
+            await sendMessageFeishu({
+              cfg,
+              to: chatId,
+              text: chunk,
+              replyToMessageId,
+            });
+          }
         }
       },
       onError: (err, info) => {
