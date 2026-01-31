@@ -44,6 +44,13 @@
       "defaultChoice": "npm"
     }
   },
+  "scripts": {
+    "check": "tsc --noEmit",
+    "publish:interactive": "./scripts/publish.sh",
+    "publish:patch": "./scripts/quick-publish.sh patch",
+    "publish:minor": "./scripts/quick-publish.sh minor",
+    "publish:major": "./scripts/quick-publish.sh major"
+  },
   "dependencies": {
     "@larksuiteoapi/node-sdk": "^1.30.0",
     "zod": "^4.3.6"
