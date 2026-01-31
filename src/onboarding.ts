@@ -16,14 +16,14 @@ const channel = "openclaw-feishu" as const;
 function setFeishuDmPolicy(cfg: ClawdbotConfig, dmPolicy: DmPolicy): ClawdbotConfig {
   const allowFrom =
     dmPolicy === "open"
-      ? addWildcardAllowFrom(cfg.channels?.feishu?.allowFrom)?.map((entry) => String(entry))
+      ? addWildcardAllowFrom(cfg.channels?.["openclaw-feishu"]?.allowFrom)?.map((entry) => String(entry))
       : undefined;
   return {
     ...cfg,
     channels: {
       ...cfg.channels,
       "openclaw-feishu": {
-        ...cfg.channels?.feishu,
+        ...cfg.channels?.["openclaw-feishu"],
         dmPolicy,
         ...(allowFrom ? { allowFrom } : {}),
       },
@@ -37,7 +37,7 @@ function setFeishuAllowFrom(cfg: ClawdbotConfig, allowFrom: string[]): ClawdbotC
     channels: {
       ...cfg.channels,
       "openclaw-feishu": {
-        ...cfg.channels?.feishu,
+        ...cfg.channels?.["openclaw-feishu"],
         allowFrom,
       },
     },
@@ -55,7 +55,7 @@ async function promptFeishuAllowFrom(params: {
   cfg: ClawdbotConfig;
   prompter: WizardPrompter;
 }): Promise<ClawdbotConfig> {
-  const existing = params.cfg.channels?.feishu?.allowFrom ?? [];
+  const existing = params.cfg.channels?.["openclaw-feishu"]?.allowFrom ?? [];
   await params.prompter.note(
     [
       "Allowlist Feishu DMs by open_id or user_id.",
@@ -111,7 +111,7 @@ function setFeishuGroupPolicy(
     channels: {
       ...cfg.channels,
       "openclaw-feishu": {
-        ...cfg.channels?.feishu,
+        ...cfg.channels?.["openclaw-feishu"],
         enabled: true,
         groupPolicy,
       },
@@ -125,7 +125,7 @@ function setFeishuGroupAllowFrom(cfg: ClawdbotConfig, groupAllowFrom: string[]):
     channels: {
       ...cfg.channels,
       "openclaw-feishu": {
-        ...cfg.channels?.feishu,
+        ...cfg.channels?.["openclaw-feishu"],
         groupAllowFrom,
       },
     },
@@ -137,7 +137,7 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
   channel,
   policyKey: "channels.openclaw-feishu.dmPolicy",
   allowFromKey: "channels.openclaw-feishu.allowFrom",
-  getCurrent: (cfg) => (cfg.channels?.feishu as FeishuConfig | undefined)?.dmPolicy ?? "pairing",
+  getCurrent: (cfg) => (cfg.channels?.["openclaw-feishu"] as FeishuConfig | undefined)?.dmPolicy ?? "pairing",
   setPolicy: (cfg, policy) => setFeishuDmPolicy(cfg, policy),
   promptAllowFrom: promptFeishuAllowFrom,
 };
@@ -145,7 +145,7 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
 export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
   channel,
   getStatus: async ({ cfg }) => {
-    const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+    const feishuCfg = cfg.channels?.["openclaw-feishu"] as FeishuConfig | undefined;
     const configured = Boolean(resolveFeishuCredentials(feishuCfg));
 
     // Try to probe if configured
@@ -177,7 +177,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
   },
 
   configure: async ({ cfg, prompter }) => {
-    const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+    const feishuCfg = cfg.channels?.["openclaw-feishu"] as FeishuConfig | undefined;
     const resolved = resolveFeishuCredentials(feishuCfg);
     const hasConfigCreds = Boolean(feishuCfg?.appId?.trim() && feishuCfg?.appSecret?.trim());
     const canUseEnv = Boolean(
@@ -204,7 +204,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
           ...next,
           channels: {
             ...next.channels,
-            "openclaw-feishu": { ...next.channels?.feishu, enabled: true },
+            "openclaw-feishu": { ...next.channels?.["openclaw-feishu"], enabled: true },
           },
         };
       } else {
@@ -261,7 +261,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
         channels: {
           ...next.channels,
           "openclaw-feishu": {
-            ...next.channels?.feishu,
+            ...next.channels?.["openclaw-feishu"],
             enabled: true,
             appId,
             appSecret,
@@ -270,7 +270,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
       };
 
       // Test connection
-      const testCfg = next.channels?.feishu as FeishuConfig;
+      const testCfg = next.channels?.["openclaw-feishu"] as FeishuConfig;
       try {
         const probe = await probeFeishu(testCfg);
         if (probe.ok) {
@@ -290,7 +290,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
     }
 
     // Domain selection
-    const currentDomain = (next.channels?.feishu as FeishuConfig | undefined)?.domain ?? "feishu";
+    const currentDomain = (next.channels?.["openclaw-feishu"] as FeishuConfig | undefined)?.domain ?? "feishu";
     const domain = await prompter.select({
       message: "Which Feishu domain?",
       options: [
@@ -305,7 +305,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
         channels: {
           ...next.channels,
           "openclaw-feishu": {
-            ...next.channels?.feishu,
+            ...next.channels?.["openclaw-feishu"],
             domain: domain as "feishu" | "lark",
           },
         },
@@ -321,7 +321,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
         { value: "disabled", label: "Disabled - don't respond in groups" },
       ],
       initialValue:
-        (next.channels?.feishu as FeishuConfig | undefined)?.groupPolicy ?? "allowlist",
+        (next.channels?.["openclaw-feishu"] as FeishuConfig | undefined)?.groupPolicy ?? "allowlist",
     });
     if (groupPolicy) {
       next = setFeishuGroupPolicy(next, groupPolicy as "open" | "allowlist" | "disabled");
@@ -329,7 +329,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
 
     // Group allowlist if needed
     if (groupPolicy === "allowlist") {
-      const existing = (next.channels?.feishu as FeishuConfig | undefined)?.groupAllowFrom ?? [];
+      const existing = (next.channels?.["openclaw-feishu"] as FeishuConfig | undefined)?.groupAllowFrom ?? [];
       const entry = await prompter.text({
         message: "Group chat allowlist (chat_ids)",
         placeholder: "oc_xxxxx, oc_yyyyy",
@@ -352,7 +352,7 @@ export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
     ...cfg,
     channels: {
       ...cfg.channels,
-      "openclaw-feishu": { ...cfg.channels?.feishu, enabled: false },
+      "openclaw-feishu": { ...cfg.channels?.["openclaw-feishu"], enabled: false },
     },
   }),
 };

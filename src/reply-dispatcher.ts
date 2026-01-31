@@ -103,7 +103,7 @@ export function createFeishuReplyDispatcher(params: CreateFeishuReplyDispatcherP
           return;
         }
 
-        const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
+        const feishuCfg = cfg.channels?.["openclaw-feishu"] as FeishuConfig | undefined;
         const renderMode = feishuCfg?.renderMode ?? "auto";
 
         const useCard =
