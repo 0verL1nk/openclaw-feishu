@@ -11,7 +11,7 @@ import { resolveFeishuCredentials } from "./accounts.js";
 import { probeFeishu } from "./probe.js";
 import type { FeishuConfig } from "./types.js";
 
-const channel = "feishu" as const;
+const channel = "openclaw-feishu" as const;
 
 function setFeishuDmPolicy(cfg: ClawdbotConfig, dmPolicy: DmPolicy): ClawdbotConfig {
   const allowFrom =
@@ -22,7 +22,7 @@ function setFeishuDmPolicy(cfg: ClawdbotConfig, dmPolicy: DmPolicy): ClawdbotCon
     ...cfg,
     channels: {
       ...cfg.channels,
-      feishu: {
+      "openclaw-feishu": {
         ...cfg.channels?.feishu,
         dmPolicy,
         ...(allowFrom ? { allowFrom } : {}),
@@ -36,7 +36,7 @@ function setFeishuAllowFrom(cfg: ClawdbotConfig, allowFrom: string[]): ClawdbotC
     ...cfg,
     channels: {
       ...cfg.channels,
-      feishu: {
+      "openclaw-feishu": {
         ...cfg.channels?.feishu,
         allowFrom,
       },
@@ -96,7 +96,7 @@ async function noteFeishuCredentialHelp(prompter: WizardPrompter): Promise<void>
       "4) Enable required permissions: im:message, im:chat, contact:user.base:readonly",
       "5) Publish the app or add it to a test group",
       "Tip: you can also set FEISHU_APP_ID / FEISHU_APP_SECRET env vars.",
-      `Docs: ${formatDocsLink("/channels/feishu", "feishu")}`,
+      `Docs: ${formatDocsLink("/channels/openclaw-feishu", "openclaw-feishu")}`,
     ].join("\n"),
     "Feishu credentials",
   );
@@ -110,7 +110,7 @@ function setFeishuGroupPolicy(
     ...cfg,
     channels: {
       ...cfg.channels,
-      feishu: {
+      "openclaw-feishu": {
         ...cfg.channels?.feishu,
         enabled: true,
         groupPolicy,
@@ -124,7 +124,7 @@ function setFeishuGroupAllowFrom(cfg: ClawdbotConfig, groupAllowFrom: string[]):
     ...cfg,
     channels: {
       ...cfg.channels,
-      feishu: {
+      "openclaw-feishu": {
         ...cfg.channels?.feishu,
         groupAllowFrom,
       },
@@ -142,7 +142,7 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
   promptAllowFrom: promptFeishuAllowFrom,
 };
 
-export const feishuOnboardingAdapter: ChannelOnboardingAdapter = {
+export const openclawFeishuOnboardingAdapter: ChannelOnboardingAdapter = {
   channel,
   getStatus: async ({ cfg }) => {
     const feishuCfg = cfg.channels?.feishu as FeishuConfig | undefined;
@@ -204,7 +204,7 @@ export const feishuOnboardingAdapter: ChannelOnboardingAdapter = {
           ...next,
           channels: {
             ...next.channels,
-            feishu: { ...next.channels?.feishu, enabled: true },
+            "openclaw-feishu": { ...next.channels?.feishu, enabled: true },
           },
         };
       } else {
@@ -260,7 +260,7 @@ export const feishuOnboardingAdapter: ChannelOnboardingAdapter = {
         ...next,
         channels: {
           ...next.channels,
-          feishu: {
+          "openclaw-feishu": {
             ...next.channels?.feishu,
             enabled: true,
             appId,
@@ -304,7 +304,7 @@ export const feishuOnboardingAdapter: ChannelOnboardingAdapter = {
         ...next,
         channels: {
           ...next.channels,
-          feishu: {
+          "openclaw-feishu": {
             ...next.channels?.feishu,
             domain: domain as "feishu" | "lark",
           },
@@ -352,7 +352,7 @@ export const feishuOnboardingAdapter: ChannelOnboardingAdapter = {
     ...cfg,
     channels: {
       ...cfg.channels,
-      feishu: { ...cfg.channels?.feishu, enabled: false },
+      "openclaw-feishu": { ...cfg.channels?.feishu, enabled: false },
     },
   }),
 };

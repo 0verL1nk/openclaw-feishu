@@ -13,7 +13,7 @@ import {
   listFeishuDirectoryPeersLive,
   listFeishuDirectoryGroupsLive,
 } from "./directory.js";
-import { feishuOnboardingAdapter } from "./onboarding.js";
+import { openclawFeishuOnboardingAdapter } from "./onboarding.js";
 
 const meta = {
   id: "feishu",
@@ -153,7 +153,7 @@ export const feishuPlugin: ChannelPlugin<ResolvedFeishuAccount> = {
       },
     }),
   },
-  onboarding: feishuOnboardingAdapter,
+  onboarding: openclawFeishuOnboardingAdapter,
   messaging: {
     normalizeTarget: normalizeFeishuTarget,
     targetResolver: {
