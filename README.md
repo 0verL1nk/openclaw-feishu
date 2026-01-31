@@ -152,20 +152,20 @@ openclaw plugins install ./openclaw-feishu-0.1.5.tgz
 #### 飞书国内版
 
 ```bash
-openclaw config set channels.feishu.domain "feishu"
-openclaw config set channels.feishu.appId "cli_xxxxx"
-openclaw config set channels.feishu.appSecret "your_app_secret"
-openclaw config set channels.feishu.enabled true
+openclaw config set channels.openclaw-feishu.domain "feishu"
+openclaw config set channels.openclaw-feishu.appId "cli_xxxxx"
+openclaw config set channels.openclaw-feishu.appSecret "your_app_secret"
+openclaw config set channels.openclaw-feishu.enabled true
 openclaw restart
 ```
 
 #### Lark 国际版
 
 ```bash
-openclaw config set channels.feishu.domain "lark"
-openclaw config set channels.feishu.appId "cli_xxxxx"
-openclaw config set channels.feishu.appSecret "your_app_secret"
-openclaw config set channels.feishu.enabled true
+openclaw config set channels.openclaw-feishu.domain "lark"
+openclaw config set channels.openclaw-feishu.appId "cli_xxxxx"
+openclaw config set channels.openclaw-feishu.appSecret "your_app_secret"
+openclaw config set channels.openclaw-feishu.enabled true
 openclaw restart
 ```
 

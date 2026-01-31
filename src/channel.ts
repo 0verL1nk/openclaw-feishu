@@ -60,7 +60,7 @@ export const feishuPlugin: ChannelPlugin<ResolvedFeishuAccount> = {
   groups: {
     resolveToolPolicy: resolveFeishuGroupToolPolicy,
   },
-  reload: { configPrefixes: ["channels.feishu"] },
+  reload: { configPrefixes: ["channels.openclaw-feishu"] },
   configSchema: {
     schema: {
       type: "object",
@@ -136,7 +136,7 @@ export const feishuPlugin: ChannelPlugin<ResolvedFeishuAccount> = {
       const groupPolicy = feishuCfg?.groupPolicy ?? defaultGroupPolicy ?? "allowlist";
       if (groupPolicy !== "open") return [];
       return [
-        `- Feishu groups: groupPolicy="open" allows any member to trigger (mention-gated). Set channels.feishu.groupPolicy="allowlist" + channels.feishu.groupAllowFrom to restrict senders.`,
+        `- Feishu groups: groupPolicy="open" allows any member to trigger (mention-gated). Set channels.openclaw-feishu.groupPolicy="allowlist" + channels.openclaw-feishu.groupAllowFrom to restrict senders.`,
       ];
     },
   },

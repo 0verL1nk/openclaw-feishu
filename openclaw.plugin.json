@@ -1,6 +1,6 @@
 {
   "id": "openclaw-feishu",
-  "channels": ["feishu"],
+  "channels": ["openclaw-feishu"],
   "configSchema": {
     "type": "object",
     "additionalProperties": false,
