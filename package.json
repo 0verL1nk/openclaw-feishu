@@ -1,6 +1,6 @@
 {
   "name": "@overlink/openclaw-feishu",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "type": "module",
   "description": "OpenClaw Feishu/Lark channel plugin (fixed immediate message delivery)",
   "license": "MIT",

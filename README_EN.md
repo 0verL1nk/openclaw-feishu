@@ -57,10 +57,10 @@ npm install @overlink/openclaw-feishu
 
 ```bash
 # 1. Download the package
-curl -O https://registry.npmjs.org/@overlink/openclaw-feishu/-/openclaw-feishu-0.1.7.tgz
+curl -O https://registry.npmjs.org/@overlink/openclaw-feishu/-/openclaw-feishu-0.1.9.tgz
 
 # 2. Install from local file
-openclaw plugins install ./openclaw-feishu-0.1.7.tgz
+openclaw plugins install ./openclaw-feishu-0.1.9.tgz
 ```
 
 ---
